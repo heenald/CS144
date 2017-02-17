@@ -43,7 +43,7 @@ public class AuctionSearch implements IAuctionSearch {
     throws IOException, ParseException {
         
         if (searcher == null || parser == null) {
-            searcher = new IndexSearcher(DirectoryReader.open(FSDirectory.open(new File("index-directory"))));
+            searcher = new IndexSearcher(DirectoryReader.open(FSDirectory.open(new File("/var/lib/lucene/index-directory"))));
             parser = new QueryParser("content", new StandardAnalyzer());
         }
         Query query = parser.parse(queryString);
