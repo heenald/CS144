@@ -17,6 +17,7 @@ CREATE TABLE item(
 	name VARCHAR(200) NOT NULL,
 	started TIMESTAMP NOT NULL,
 	ends TIMESTAMP NOT NULL,
+	currently DECIMAL(8,2) NOT NULL,
 	buy_price DECIMAL(8,2),
 	first_bid DECIMAL(8,2) NOT NULL,
 	seller_user_id VARCHAR(100) NOT NULL,

@@ -67,7 +67,7 @@ class MyParser {
     static final String ITEM_TAG = "Item";
     static final String NAME_TAG = "Name";
     static final String CATEGORY_TAG = "Category";
-    //static final String CURRENTLY_TAG = "Currently";
+    static final String CURRENTLY_TAG = "Currently";
     static final String BUY_PRICE_TAG = "Buy_Price";
     static final String FIRST_BID_TAG = "First_Bid";
     //static final String NUMBER_OF_BIDS_TAG = "Number_of_Bids";
@@ -329,6 +329,7 @@ class MyParser {
         itemRow.add(getElementTextByTagNameNR(item, NAME_TAG));
         itemRow.add(formatForSQLTimestamp(getElementTextByTagNameNR(item, STARTED_TAG)));
         itemRow.add(formatForSQLTimestamp(getElementTextByTagNameNR(item, ENDS_TAG)));
+        itemRow.add(strip(getElementTextByTagNameNR(item, CURRENTLY_TAG)));
         itemRow.add(strip(getElementTextByTagNameNR(item, BUY_PRICE_TAG)));
         itemRow.add(strip(getElementTextByTagNameNR(item, FIRST_BID_TAG)));
         itemRow.add(sellerUserID);
