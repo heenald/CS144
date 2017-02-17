@@ -1,39 +1,28 @@
 package edu.ucla.cs.cs144;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.File;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.text.SimpleDateFormat;
-
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import org.apache.lucene.document.Document;
-import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.store.Directory;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.util.Version;
-
-import edu.ucla.cs.cs144.DbManager;
-import edu.ucla.cs.cs144.SearchRegion;
-import edu.ucla.cs.cs144.SearchResult;
 
 public class AuctionSearch implements IAuctionSearch {
     
@@ -186,9 +175,8 @@ public class AuctionSearch implements IAuctionSearch {
         ResultSet rs = s.executeQuery("SELECT * FROM item_category where item_id = "+itemId);
         
         while(rs.next()){
-            xml.append("\t<Category>"+rs.getString("category")+"</Category>\n");
+            xml.append("\t<Category>"+formatSpecialCharacters(rs.getString("category"))+"</Category>\n");
         }
-        xml.append("\n");
         
         s.close();
         
@@ -221,7 +209,7 @@ public class AuctionSearch implements IAuctionSearch {
             xml.append("\t\t\t<Bidder Rating=\""+rs_bidder.getString("bidder_rating")+"\" UserID=\""+bidder_id+"\">\n");
             
             if(rs_bidder.getString("location")!=null)
-                xml.append("\t\t\t\t<Location>"+rs_bidder.getString("location")+"</Location>\n");
+                xml.append("\t\t\t\t<Location>"+formatSpecialCharacters(rs_bidder.getString("location"))+"</Location>\n");
             if(rs_bidder.getString("country")!=null)
                 xml.append("\t\t\t\t<Country>"+rs_bidder.getString("country")+"</Country>\n");
             
@@ -276,7 +264,7 @@ public class AuctionSearch implements IAuctionSearch {
             xml.append(" Latitude=\""+latitude+"\"");
         if(longitude!=null)
             xml.append(	" Longitude=\""+longitude+"\"");
-        xml.append(">"+location+"</Location>\n");
+        xml.append(">"+formatSpecialCharacters(location)+"</Location>\n");
         
         return xml.toString();
         
@@ -297,6 +285,10 @@ public class AuctionSearch implements IAuctionSearch {
         
     }
     
+    private String formatSpecialCharacters(String original){
+        return original.replaceAll("&", "&amp;");
+    }
+    
     public String getXMLDataForItemId(String itemId) {
         
         
@@ -315,17 +307,14 @@ public class AuctionSearch implements IAuctionSearch {
                 StringBuffer xml = new StringBuffer();
                 xml.append("<Item ItemID=\""+itemId+"\">\n");
                 
-                xml.append("\t<Name>"+rs.getString("name")+"</Name>\n");
+                xml.append("\t<Name>"+formatSpecialCharacters(rs.getString("name"))+"</Name>\n");
                 xml.append(getCategoryXML(itemId, connection));
-                //currently?
-                //buy_price
+                
+                xml.append("\t<Currently>$"+rs.getString("currently")+"</Currently>\n");
                 
                 if(rs.getString("buy_price")!=null)
                     xml.append("\t<Buy_Price>$"+rs.getString("buy_price")+"</Buy_Price>\n");
                 xml.append("\t<First_Bid>$"+rs.getString("first_bid")+"</First_Bid>\n");
-                
-                
-                //first_bid
                 
                 xml.append(getBidsXML(itemId, connection));
                 
@@ -339,7 +328,7 @@ public class AuctionSearch implements IAuctionSearch {
                 xml.append("\t<Ends>"+ends+"</Ends>\n");
                 
                 xml.append(getSellerXML(rs.getString("seller_user_id"), connection));
-                xml.append("\t<Description>"+/*rs.getString("description")*/""+"</Description>\n");
+                xml.append("\t<Description>"+formatSpecialCharacters(rs.getString("description"))+"</Description>\n");
                 
                 xml.append("</Item>\n");
                 return xml.toString();
