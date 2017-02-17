@@ -215,6 +215,7 @@ class MyParserPrint {
     }  
     
     public static void main (String[] args) {
+    	//args[0]="/Users/heenald/Desktop/Assignments/cs144/vm-shared/ebay-data/items-tst.xml";
         if (args.length == 0) {
             System.out.println("Usage: java MyParser [file] [file] ...");
             System.exit(1);
