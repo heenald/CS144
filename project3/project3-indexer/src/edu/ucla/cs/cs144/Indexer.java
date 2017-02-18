@@ -99,13 +99,13 @@ public class Indexer {
         try {
             conn.close();
         } catch (SQLException ex) {
-            System.out.println(ex);
+            ex.printStackTrace();
         }
         
         try {
             indexItems(items, itemCategories);
         } catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         
     }
@@ -113,6 +113,6 @@ public class Indexer {
     public static void main(String args[]) {
         Indexer idx = new Indexer();
         idx.rebuildIndexes();
-        System.out.println("Done");
+        System.out.println("Completed rebuilding lucene index");
     }
 }

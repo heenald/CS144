@@ -1,7 +1,7 @@
 CREATE TABLE item_location (
 	item_id VARCHAR(20) NOT NULL,
 	location POINT NOT NULL,
-	PRIMARY KEY (item_id, location),
+	PRIMARY KEY (item_id),
 	FOREIGN KEY (item_id) REFERENCES item(item_id)
 ) ENGINE=MyISAM COLLATE latin1_general_cs;
 

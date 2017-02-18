@@ -211,7 +211,7 @@ public class AuctionSearch implements IAuctionSearch {
             if(rs_bidder.getString("location")!=null)
                 xml.append("\t\t\t\t<Location>"+formatSpecialCharacters(rs_bidder.getString("location"))+"</Location>\n");
             if(rs_bidder.getString("country")!=null)
-                xml.append("\t\t\t\t<Country>"+rs_bidder.getString("country")+"</Country>\n");
+                xml.append("\t\t\t\t<Country>"+formatSpecialCharacters(rs_bidder.getString("country"))+"</Country>\n");
             
             xml.append("\t\t\t</Bidder>\n");
             
@@ -319,7 +319,7 @@ public class AuctionSearch implements IAuctionSearch {
                 xml.append(getBidsXML(itemId, connection));
                 
                 xml.append(getItemLocationXML(rs.getString("location"), rs.getString("latitude"), rs.getString("longitude")));
-                xml.append("\t<Country>"+rs.getString("country")+"</Country>\n");
+                xml.append("\t<Country>"+formatSpecialCharacters(rs.getString("country"))+"</Country>\n");
                 
                 String started = formatForSQLTimestamp(rs.getString("started"));
                 String ends = formatForSQLTimestamp(rs.getString("ends"));
