@@ -161,7 +161,7 @@ public class AuctionSearch implements IAuctionSearch {
         }
         
         SearchResult[] results = new SearchResult[0];
-        return spatialSearchResult.toArray(results);
+        return spatialSearchResult.subList(numResultsToSkip, spatialSearchResult.size()).toArray(results);
         
     }
     
@@ -286,7 +286,7 @@ public class AuctionSearch implements IAuctionSearch {
     }
     
     private String formatSpecialCharacters(String original){
-        return original.replaceAll("&", "&amp;");
+        return original.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
     }
     
     public String getXMLDataForItemId(String itemId) {
