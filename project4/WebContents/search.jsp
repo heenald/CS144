@@ -3,11 +3,13 @@
 <html>
 <head><title>Search Items</title></head>
 
+<link href="search.css" rel="stylesheet" />
+<script src="search.js" type="text/javascript" ></script>
 <body>
-	
+
 	<form name="itemsForm" action="" method="get">
 		Your eBay item query goes here:
-		<input type="text" name="query" size="20px">
+		<input type="text" id = "query" name="query" size="20px">
 		<input type="hidden" name="pageNumber" value="0">
 		<input type="submit" value="Submit">
 	</form>
@@ -22,12 +24,11 @@
 
     %>
     <ul>
-    <c:forEach items="${searchResults}" var="result">
-    <li>
-    <a href="item?item_id=${result.itemId}">${result.itemId}</a> : <span>${result.name}</span>
-    </li>
-     
-    </c:forEach>
+    	<c:forEach items="${searchResults}" var="result">
+    		<li>
+    			<a href="item?item_id=${result.itemId}">${result.itemId}</a> : <span>${result.name}</span>
+    		</li>
+     	</c:forEach>
 	</ul>
 
 	<form name="nextForm" action="" method="get">
