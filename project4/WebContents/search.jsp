@@ -1,17 +1,29 @@
 <%@ page import="edu.ucla.cs.cs144.SearchResult,java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
-<head><title>Search Items</title></head>
+<head>
 
-<link href="search.css" rel="stylesheet" />
-<script src="search.js" type="text/javascript" ></script>
+	<title>Search Items</title>
+
+	<script type="text/javascript" src="search.js"></script>
+    <link rel="stylesheet" type="text/css" href="search.css" />
+
+	<script type="text/javascript">
+        window.onload = function () {
+            var oTextbox = new AutoSuggestControl(document.getElementById("query"), new GoogleSuggestions()); 
+        }
+ 	</script>
+
+</head>
+	
+
 <body>
 
 	<form name="itemsForm" action="" method="get">
-		Your eBay item query goes here:
-		<input type="text" id = "query" name="query" size="20px">
+		Your eBay item query goes here:<br>
+		<p><input type="text" id = "query" name="query" size="20px">
 		<input type="hidden" name="pageNumber" value="0">
-		<input type="submit" value="Submit">
+		<input type="submit" value="Submit"></p>
 	</form>
 
 	<%
