@@ -21,12 +21,12 @@ public class ItemServlet extends HttpServlet implements Servlet {
     	// Parse XML data
     	String item_id = request.getParameter("item_id");
     	String log= "/tmp/searchServletLog";
-    	FileWriter fw = new FileWriter(log,true);
+    	//FileWriter fw = new FileWriter(log,true);
 		
     	Item item = null;
 		String xmlItem = AuctionSearch.getXMLDataForItemId(item_id);
-    	fw.write("ItemId: "+item_id+"\n");
-		fw.write("XMLItem: "+xmlItem+"\n");
+    	//fw.write("ItemId: "+item_id+"\n");
+		//fw.write("XMLItem: "+xmlItem+"\n");
 		
     	if(xmlItem!=null && !xmlItem.isEmpty()) {
 	    	// Using dummy item for now
@@ -61,6 +61,7 @@ public class ItemServlet extends HttpServlet implements Servlet {
     	request.setAttribute("Item", item);
 
         request.getRequestDispatcher("/item.jsp").forward(request, response);
-        fw.close();
+        //fw.close();
     }
 }
+
