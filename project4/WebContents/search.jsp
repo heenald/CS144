@@ -2,9 +2,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head><title>Search Items</title></head>
+	<script type="text/javascript" src="search.js"></script>
+    <link rel="stylesheet" type="text/css" src="search.css" />
 
-<link href="search.css" rel="stylesheet" />
-<script src="search.js" type="text/javascript" ></script>
+	<script type="text/javascript">
+        window.onload = function () {
+            var oTextbox = new AutoSuggestControl(document.getElementById("query"), new GoogleSuggestions()); 
+        }
+ 	</script>
+
 <body>
 
 	<form name="itemsForm" action="" method="get">
