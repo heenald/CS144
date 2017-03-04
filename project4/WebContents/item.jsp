@@ -5,7 +5,8 @@
 
 <style>
 #header {
-	background-color: yellow;
+	background-color: #C63D0F;
+	color: #FDF3E7;
 	font-size: 35pt;
 	width: 100%;
 	height: 80px;
@@ -19,24 +20,23 @@
 	width: calc(100%-3em);
 	height: calc(100% - 80px - 1em);
 	overflow-y: auto;
+	background-color: #FDF3E7;
 	
 	position: fixed;
-	top: calc(80px + 2em);
-	left: 2em;
-	bottom: 1em;
-	right: 0;
+	top: calc(80px + 0.5em);
+	left: 0.5em;
+	bottom: 0em;
+	right: 0.5em;
 }
 #Col1Data {
 	float:left;
-	width: calc(50% - 1.5em);
-	margin: 0em 0.5em 0em 0em;
-	left: 0;
+	width: calc(50% - 2em);
+	margin: 1em 0em 0em 1em;
 }
 #Col2Map {
 	float:right;
-	width: calc(50% - 1.5em);
-	margin: 0em 0em 0em 0.5em;
-	right: 1em
+	width: calc(50% - 2em);
+	margin: 1em 1em 0em 0em;
 }
 #Col1Data, #Col2Map {
 	min-height: 1px;
@@ -44,8 +44,12 @@
 }
 #ContentBottom {
 	float:left
-	width: calc(100%-3em);
-	clear:both
+	background-color: #FDF3E7;
+	width: calc(100%-2em);
+	margin: 0em 1em 0em 1em;
+	
+	clear:both;
+	
 }
 </style>
 
@@ -110,7 +114,7 @@
 			</x:if>
 
 			<div id="ContentBottom" >
-				
+				<br>
 				<b>Bidding Information is as follows:</b><br><br>
 				<b>Number of bids:</b> <x:out select="$Item/Item/Number_of_Bids" /> <br><br>
 				<x:if select="$Item/Item/Number_of_Bids > 0">

@@ -4,8 +4,9 @@
 
 <style>
 #header {
-	background-color: yellow;
+	background-color: #C63D0F;
 	font-size: 35pt;
+	color: #FDF3E7;
 	width: 100%;
 	height: 80px;
 	text-align: center;
@@ -16,13 +17,14 @@
 }
 #content {
 	width: calc(100%-3em);
-	height: calc(100% - 80px - 1em);
+	height: calc(100% - 80px - 0.5em);
 	overflow-y: auto;
+	background-color: #FDF3E7;
 	
 	position: relative;
 	top: 80px;
 	left: 0em;
-	bottom: 1em;
+	bottom: 0.5em;
 	right: 0em;
 }
 
