@@ -49,12 +49,12 @@
 }
 </style>
 
-<body onload="initialize()">
+<body>
 
 <c:choose>
 	<c:when test="${not empty xmlItem}">
 		<x:parse xml="${xmlItem}" var="Item"/>
-		<div id="header"> Item Details </div>
+		<div id="header"> Ebay Auction Search </div>
 
 		<div id="ContentTop">
 			<div id = "Col1Data" >
@@ -65,36 +65,6 @@
 					<b>Location Coordinates:</b> (<x:out select="$Item/Item/Location/@Latitude" />, <x:out select="$Item/Item/Location/@Longitude" />) <br><br>
 				</x:if>
 				<b>Country:</b> <x:out select="$Item/Item/Country" /> <br><br>
-			</div>
-			
-			<script type="text/javascript" 
-			src="http://maps.google.com/maps/api/js?sensor=false"> 
-			</script> 
-			<script type="text/javascript"> 
-			  function initialize() { 
-				var latitude = parseFloat('<x:out select="$Item/Item/Location/@Latitude" />');
-				var longitude = parseFloat('<x:out select="$Item/Item/Location/@Longitude" />');
-				var latlng = new google.maps.LatLng(latitude,longitude); 
-				var myOptions = { 
-				  zoom: 14, // default is 8  
-				  center: latlng, 
-				  mapTypeId: google.maps.MapTypeId.ROADMAP 
-				}; 
-				var map = new google.maps.Map(document.getElementById("Col2Map"),
-					myOptions);
-				var marker = new google.maps.Marker({
-					position: latlng,
-					map: map
-				});
-			  }
-			</script>
-			
-			<x:if select="$Item/Item/Location/@Latitude">
-				<div id = "Col2Map" style="width:50%; height:50%"> </div>
-			</x:if>
-
-			<div id="ContentBottom" >
-				<br><br>
 				<b>Seller Information:</b> This item is being sold by the user "<b><x:out select="$Item/Item/Seller/@UserID" /></b>" (Rating <x:out select="$Item/Item/Seller/@Rating" />)<br><br>
 				<b>Current Highest Bid:</b> <x:out select="$Item/Item/Currently" /> <br><br>
 				<b>First Bid Amount:</b> <x:out select="$Item/Item/First_Bid" /> <br><br>
@@ -109,6 +79,38 @@
 					<li> <x:out select="$category" />
 				</x:forEach>
 				</ul>
+			</div>
+			
+			<x:if select="$Item/Item/Location/@Latitude">
+				<script type="text/javascript" 
+				src="http://maps.google.com/maps/api/js?sensor=false"> 
+				</script> 
+				<script type="text/javascript"> 
+				  function initialize() { 
+					var latitude = parseFloat('<x:out select="$Item/Item/Location/@Latitude" />');
+					var longitude = parseFloat('<x:out select="$Item/Item/Location/@Longitude" />');
+					var latlng = new google.maps.LatLng(latitude,longitude); 
+					var myOptions = { 
+					  zoom: 14, // default is 8  
+					  center: latlng, 
+					  mapTypeId: google.maps.MapTypeId.ROADMAP 
+					}; 
+					var map = new google.maps.Map(document.getElementById("Col2Map"),
+						myOptions);
+					var marker = new google.maps.Marker({
+						position: latlng,
+						map: map
+					});
+				  }
+				  
+					window.onload = initialize;
+				</script>
+			
+				<div id = "Col2Map" style="width:50%; height:50%"> </div>
+			</x:if>
+
+			<div id="ContentBottom" >
+				
 				<b>Bidding Information is as follows:</b><br><br>
 				<b>Number of bids:</b> <x:out select="$Item/Item/Number_of_Bids" /> <br><br>
 				<x:if select="$Item/Item/Number_of_Bids > 0">
