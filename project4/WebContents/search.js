@@ -1,6 +1,12 @@
 
 var xmlHTTPRequest = new XMLHttpRequest();
 
+/**
+Ref: 
+http://oak.cs.ucla.edu/classes/cs144/projects/javascript/suggest1.html
+http://oak.cs.ucla.edu/classes/cs144/projects/javascript/suggest2.html
+**/
+
 function AutoSuggestControl(oTextbox, oProvider) {
     this.cur = -1;
     this.layer = null;
@@ -51,22 +57,21 @@ AutoSuggestControl.prototype.selectRange = function (iStart, iLength) {
 };
 
 
-AutoSuggestControl.prototype.typeAhead = function (sSuggestion) {
-    if (this.textbox.createTextRange || this.textbox.setSelectionRange) {
-        var iLen = this.textbox.value.length; 
-        this.textbox.value = sSuggestion; 
-        this.selectRange(iLen, sSuggestion.length);
-    }
-};
+// AutoSuggestControl.prototype.typeAhead = function (sSuggestion) {
+//     if (this.textbox.createTextRange || this.textbox.setSelectionRange) {
+//         var iLen = this.textbox.value.length; 
+//         this.textbox.value = sSuggestion; 
+//         this.selectRange(iLen, sSuggestion.length);
+//     }
+// };
 
 
-AutoSuggestControl.prototype.autosuggest = function (aSuggestions,
-bTypeAhead) {
+AutoSuggestControl.prototype.autosuggest = function (aSuggestions) {
 
     if (aSuggestions.length > 0) {
-        if (bTypeAhead) {
-            this.typeAhead(aSuggestions[0]);
-        }
+        // if (bTypeAhead) {
+        //     this.typeAhead(aSuggestions[0]);
+        // }
         this.showSuggestions(aSuggestions);
     } else {
         this.hideSuggestions();
@@ -211,11 +216,11 @@ AutoSuggestControl.prototype.handleKeyDown = function (oEvent) {
 function GoogleSuggestions() {
 }
 
-GoogleSuggestions.prototype.requestSuggestions = function (oAutoSuggestControl,bTypeAhead) {
+GoogleSuggestions.prototype.requestSuggestions = function (oAutoSuggestControl) {
 
 	function callBack() {
         return function() {
-            displaySuggestions(oAutoSuggestControl, bTypeAhead)
+            displaySuggestions(oAutoSuggestControl)
         }
     }
      
@@ -232,9 +237,9 @@ GoogleSuggestions.prototype.requestSuggestions = function (oAutoSuggestControl,b
 
 };
 
-function displaySuggestions(oAutoSuggestControl, bTypeAhead){
+function displaySuggestions(oAutoSuggestControl){
 
-    if(xmlHTTPRequest.readyState == 4){
+    if(xmlHTTPRequest.readyState == 4 && xmlHTTPRequest.status == 200){
 
 		var aSuggestions = [];
 		var elements = xmlHTTPRequest.responseXML.getElementsByTagName('CompleteSuggestion');
@@ -242,7 +247,7 @@ function displaySuggestions(oAutoSuggestControl, bTypeAhead){
 			aSuggestions.push(elements[i].childNodes[0].getAttribute("data"));
 		}
 
-		oAutoSuggestControl.autosuggest(aSuggestions, bTypeAhead);
+		oAutoSuggestControl.autosuggest(aSuggestions);
 
 	}
 }

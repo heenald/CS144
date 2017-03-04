@@ -26,4 +26,9 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+    <error-page>
+    <!-- Uncaught exception -->
+        <error-code>500</error-code>
+        <location>/general-error.html</location>
+    </error-page>
 </web-app>
