@@ -73,6 +73,8 @@ AutoSuggestControl.prototype.autosuggest = function (aSuggestions) {
         //     this.typeAhead(aSuggestions[0]);
         // }
         this.showSuggestions(aSuggestions);
+        //Setting it to -1 to restart highlighting from 1
+        this.cur = -1;
     } else {
         this.hideSuggestions();
     }
@@ -84,12 +86,12 @@ AutoSuggestControl.prototype.handleKeyUp = function (oEvent) {
     var iKeyCode = oEvent.keyCode;
 
     if (iKeyCode == 8 || iKeyCode == 46) {
-        this.provider.requestSuggestions(this, false);
+        this.provider.requestSuggestions(this);
 
     } else if (iKeyCode < 32 || (iKeyCode >= 33 && iKeyCode <= 46) || (iKeyCode >= 112 && iKeyCode <= 123)) {
         //ignore
     } else {
-        this.provider.requestSuggestions(this, true);
+        this.provider.requestSuggestions(this);
     }
 };
 
