@@ -4,8 +4,9 @@
 
 <style>
 #header {
-	background-color: yellow;
+	background-color: #C63D0F;
 	font-size: 35pt;
+	color: #FDF3E7;
 	width: 100%;
 	height: 80px;
 	text-align: center;
@@ -16,27 +17,30 @@
 }
 #content {
 	width: calc(100%-3em);
-	height: calc(100% - 1em);
+	height: calc(100% - 80px - 0.5em);
 	overflow-y: auto;
+	background-color: #FDF3E7;
 	
 	position: relative;
 	top: 80px;
-	left: 2em;
-	bottom: 1em;
-	right: 0;
+	left: 0em;
+	bottom: 0.5em;
+	right: 0em;
 }
 
 #Col1Input {
 	float:left;
-	width: calc(25% - 1.5em);
+	width: calc(25% + 50px - 1.5em);
 	margin: 0em 0.5em 0em 0em;
-	left: 0;
+	
+	position: relative;
+	left: 50px;
+	top: 150px;
 }
 #Col2Results {
 	float:right;
-	width: calc(75% - 1.5em);
+	width: calc(75% - 1.5em - 50px);
 	margin: 0em 0em 0em 0.5em;
-	right: 1em;
 }
 </style>
 
@@ -61,7 +65,7 @@
 <div id="content" >
 	<div id="Col1Input" >
 		<form name="itemsForm" action="" method="get" autocomplete="off">
-			Your eBay item query goes here:<br>
+			<b><h2>Your eBay item query goes here:</b></h2>
 			<p><input type="text" id = "query" name="query" size="20px">
 			<input type="hidden" name="pageNumber" value="0">
 			<input type="submit" value="Submit"></p>
@@ -95,7 +99,8 @@
 		<br>
 
 		<% } else {%>
-			No results to be displayed.
+			<br><br><br><br><br><br><br><br>
+			<b><h2>No more results to be displayed.</b></h2>
 		<% } 
 		}
 		%>
