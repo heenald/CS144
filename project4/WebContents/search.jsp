@@ -67,7 +67,7 @@
 	<div id="Col1Input" >
 		<form name="itemsForm" action="" method="get" autocomplete="off">
 			<h2><b>Your eBay item query goes here:<br></b></h2>
-			<input type="text" id = "query" name="query" size="20px" value=<%= request.getParameter("query")==null?"":request.getParameter("query") %>  >
+			<input type="text" id = "query" name="query" size="20px" value="<%= request.getParameter("query")==null?"":request.getParameter("query") %>"  >
 			<input type="hidden" name="pageNumber" value="0">
 			<input type="submit" value="Submit">
 		</form>
