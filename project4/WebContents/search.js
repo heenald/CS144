@@ -116,6 +116,7 @@ AutoSuggestControl.prototype.createDropDown = function () {
     this.layer = document.createElement("div");
     this.layer.className = "suggestions";
     this.layer.style.visibility = "hidden";
+    this.layer.style.backgroundColor="White";
     this.layer.style.width = this.textbox.offsetWidth;
     document.body.appendChild(this.layer);
 

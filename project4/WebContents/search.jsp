@@ -62,49 +62,63 @@
 	
 
 <body>
+
 <div id="content" >
 	<div id="Col1Input" >
 		<form name="itemsForm" action="" method="get" autocomplete="off">
-			<b><h2>Your eBay item query goes here:</b></h2>
-			<p><input type="text" id = "query" name="query" size="20px">
+			<h2><b>Your eBay item query goes here:<br></b></h2>
+			<input type="text" id = "query" name="query" size="20px" value=<%= request.getParameter("query")==null?"":request.getParameter("query") %>  >
 			<input type="hidden" name="pageNumber" value="0">
-			<input type="submit" value="Submit"></p>
+			<input type="submit" value="Submit">
 		</form>
 	</div>
 	<div id="Col2Results" >
-		<%
-			if (request.getAttribute("query")!=null){
+    <%
+        if (request.getAttribute("query")!=null){
 
-				if(request.getAttribute("searchResults")!=null && ((List)request.getAttribute("searchResults")).size() > 0) {
 
-			String query = (String) request.getAttribute("query");
-			Integer pageNumber = (Integer)request.getAttribute("pageNumber");
+            if(request.getAttribute("searchResults")!=null && ((List)request.getAttribute("searchResults")).size() > 0) {
 
-		%>
-		<b><h2>Top results matching your query:</b></h2>
-		<ul>
-			<c:forEach items="${searchResults}" var="result">
-				<li>
-					<a href="item?item_id=${result.itemId}">${result.itemId}</a> : <span>${result.name}</span>
-				</li>
-			</c:forEach>
-		</ul>
+            	//Results found
 
-		<form name="nextForm" action="" method="get">
-			<input type="hidden" name="query" value="${query}">
-			<input type="hidden" name="pageNumber" value="${pageNumber}">
-			<input type="submit" value="Get Next 20">
-		</form>
-		<br>
-		<br>
+                String query = (String) request.getAttribute("query");
+                Integer pageNumber = (Integer)request.getAttribute("pageNumber");
 
-		<% } else {%>
-			<br><br><br><br><br><br><br><br>
-			<b><h2>No more results to be displayed.</b></h2>
-		<% } 
-		}
-		%>
-	</div>
+    %>
+                <h2><b>Top results matching your query:</b></h2>
+                <ul>
+                    <c:forEach items="${searchResults}" var="result">
+                        <li>
+                            <a href="item?item_id=${result.itemId}">${result.itemId}</a> : <span>${result.name}</span>
+                        </li>
+                    </c:forEach>
+                </ul>
+
+                <form name="nextForm" action="" method="get">
+                        <input type="hidden" name="query" value="${query}">
+                        <input type="hidden" name="pageNumber" value="${pageNumber}">
+                        <input type="submit" value="Get Next 20">
+                </form>
+                <br>
+                <br>
+
+                <% } else {
+
+                	//No results found
+
+					Integer pageNumber = (Integer)request.getAttribute("pageNumber");                
+                	if (pageNumber>1){%>
+                		<br><br><br>
+                        <b><h3><p style="text-indent: 5em;">No more results to be displayed.</p><h3><b>
+                	<% }
+                	else{%>
+                		<br><br><br>&nbsp;
+                        <b><h3><p style="text-indent: 5em;">No matching results.</p><h3><b>
+            		<%}
+
+               	}
+    }%>
+    </div>
 </div>
 
 </body>
