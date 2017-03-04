@@ -55,12 +55,13 @@
 
 <body>
 
+<div id="header"> Ebay Auction Search </div>
+
+<div id="ContentTop">
 <c:choose>
 	<c:when test="${not empty xmlItem}">
 		<x:parse xml="${xmlItem}" var="Item"/>
-		<div id="header"> Ebay Auction Search </div>
 
-		<div id="ContentTop">
 			<div id = "Col1Data" >
 				<b>Item ID:</b> <x:out select="$Item/Item/@ItemID" /> <br><br>
 				<b>Item Name:</b> <x:out select="$Item/Item/Name" /><br><br>
@@ -137,13 +138,13 @@
 				<br>
 				<br>
 				<br> 
-			</div> 
-		</div> 
+			</div>  
 	</c:when>
 	<c:otherwise>
 		<b><h2> Item doesn't exist! Please try another item ID. </h2><b>
 	</c:otherwise>
 </c:choose>
+</div>
 
 </body>
 </html>
